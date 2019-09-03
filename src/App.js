@@ -16,7 +16,22 @@ const todoData = [
     task: 'Bake Cookies',
     id: 1528817084358,
     completed: false
-  }
+  },
+  {
+    task: 'Clean Room',
+    id: 1528817086458,
+    completed: false
+  },
+  {
+    task: 'Go workout!',
+    id: 1528817086439,
+    completed: false
+  },
+  {
+    task: 'Watch Netflix as reward :)',
+    id: 1528817086440,
+    completed: false
+  },
 ];
 
 class App extends React.Component {
@@ -67,21 +82,20 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="header">
-          <h2>Welcome to your Todo App!</h2>
+          <h2>Adrian's Amazing Todo App!</h2>
+          <TodoForm
+          addItem={this.addItem}
+          // clearCompleted={this.clearCompleted}
+        />
         </div>
         <TodoList
           todoItem={this.state.todoItem}
           toggleTask={this.toggleTask}
           clearCompleted={this.clearCompleted}
         />
-        <TodoForm
-          addItem={this.addItem}
-          // clearCompleted={this.clearCompleted}
-        />
         <button class="clear-btn" onClick={this.clearCompleted}>Clear Completed</button>
       </div>
     );
   }
 }
-
 export default App;
