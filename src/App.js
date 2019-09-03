@@ -4,6 +4,8 @@ import React from 'react';
 import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm';
 
+import './components/TodoComponents/Todo.css';
+
 const todoData = [
   {
     task: 'Organize Garage',
@@ -27,6 +29,40 @@ class App extends React.Component {
       todoItem: todoData
     };
   }
+
+  toggleTask = id => {
+    console.log(id);
+    this.setState({
+      todoItem: this.state.todoItem.map(task => {
+        if (task.id === id) {
+          return {
+            ...task,
+            completed: !task.completed
+          };
+        } else {
+          return task;
+        }
+      })
+    });
+  }
+
+  addItem = taskName => {
+    const newItem = {
+      task: taskName,
+      id: Date.now(),
+      completed: false
+    };
+    this.setState({
+      todoItem: [...this.state.todoItem, newItem]
+    })
+  }
+
+  clearCompleted = () => {
+    this.setState({
+      todoItem: this.state.todoItem.filter(task => !task.completed)
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -34,9 +70,15 @@ class App extends React.Component {
           <h2>Welcome to your Todo App!</h2>
         </div>
         <TodoList
-          todoItem={this.state.todoItem}//passing todoItem as props to child components
+          todoItem={this.state.todoItem}
+          toggleTask={this.toggleTask}
+          clearCompleted={this.clearCompleted}
         />
-        <TodoForm/>
+        <TodoForm
+          addItem={this.addItem}
+          // clearCompleted={this.clearCompleted}
+        />
+        <button class="clear-btn" onClick={this.clearCompleted}>Clear Completed</button>
       </div>
     );
   }

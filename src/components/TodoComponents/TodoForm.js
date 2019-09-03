@@ -1,6 +1,6 @@
 import React from 'react';
 
- class TodoForm extends React.Component {
+class TodoForm extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -8,9 +8,23 @@ import React from 'react';
         }
     }
 
-     render() {
+    //event handlers:
+
+    handleChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+        console.log("handleChange", e.target.name, e.target.value)//logging changes when user is typing in the input field
+    }
+
+    submitItem = e => {
+        e.preventDefault();
+        this.props.addItem(this.state.item)
+    }
+
+    render() {
         return (
-            <form>
+            <form onSubmit={this.submitItem}>
                 <input
                     type="text"
                     value={this.state.item}
@@ -18,11 +32,11 @@ import React from 'react';
                     onChange={this.handleChange}
                 />
                 <button>Add Todo</button>
-                <button>Clear Completed</button>
+                
             </form>
         );
     }
 
- }
+}
 
- export default TodoForm; 
+export default TodoForm;
